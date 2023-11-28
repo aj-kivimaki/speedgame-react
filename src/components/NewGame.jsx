@@ -1,16 +1,28 @@
 // input for name and difficulty levels
+import { useState } from "react";
 
 const NewGame = ({ onclick }) => {
+  const [name, setName] = useState("");
+
+  const inputHandler = (e) => setName(e.target.value);
+
   return (
     <div className="new-game">
       <h2>Start a game</h2>
-      <div className="name-input">
-        <label htmlFor="name">Name:</label>
-        <input type="text" name="name" id="name" />
+      <div className="input">
+        <input
+          onChange={inputHandler}
+          type="text"
+          name="name"
+          placeholder="name"
+          required
+        />
       </div>
-      <button onClick={() => onclick("easy")}>Easy</button>
-      <button onClick={() => onclick("intermediate")}>Intermediate</button>
-      <button onClick={() => onclick("hard")}>Hard</button>
+      <button onClick={() => onclick("easy", name)}>Easy</button>
+      <button onClick={() => onclick("intermediate", name)}>
+        Intermediate
+      </button>
+      <button onClick={() => onclick("hard", name)}>Hard</button>
     </div>
   );
 };
