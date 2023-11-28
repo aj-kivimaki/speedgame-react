@@ -1,15 +1,19 @@
 // gameSetHandler, clickHandler, nextCircle, startHandler, stopHandler, closeHandler
 
 import { useState } from "react";
+import Footer from "./UI_components/Footer";
 import NewGame from "./components/NewGame";
-import { levels } from "./levels";
-import Circle from "./UI_components/Circle";
 import Game from "./components/Game";
+import GameOver from "./components/GameOver";
+import { levels } from "./levels";
 
 function App() {
   const [player, setPlayer] = useState({});
   const [circles, setCircles] = useState([]);
   const [score, setScore] = useState(0);
+  const [gameLaunch, setGameLaunch] = useState(true);
+  const [gameOn, setGameOn] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   const gameSetHandler = (difficulty, name) => {
     const difficultyIndex = levels.findIndex((el) => el.level === difficulty);
@@ -22,20 +26,27 @@ function App() {
       difficulty,
       name,
     });
+    setGameLaunch(!gameLaunch);
+    setGameOn(!gameOn);
   };
 
   const stopHandler = () => {
-    console.log("stop");
+    setGameOn(!gameOn);
+    setGameOver(!gameOver);
   };
 
   return (
-    <div className="app">
-      <h1>Pick the Mushrooms</h1>
-      {circles.length === 0 && <NewGame onclick={gameSetHandler} />}
-      {circles.length !== 0 && (
-        <Game score={score} circles={circles} stopHandler={stopHandler} />
-      )}
-    </div>
+    <>
+      <main className="app">
+        <h1>Pick the Mushroom</h1>
+        {gameLaunch && <NewGame onclick={gameSetHandler} />}
+        {gameOn && (
+          <Game score={score} circles={circles} stopHandler={stopHandler} />
+        )}
+        {gameOver && <GameOver />}
+      </main>
+      <Footer />
+    </>
   );
 }
 

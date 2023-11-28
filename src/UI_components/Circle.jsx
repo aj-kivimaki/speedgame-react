@@ -1,4 +1,4 @@
 const Circle = () => {
-  return <div>Circle</div>;
+  return <div className="circle"></div>;
 };
 export default Circle;

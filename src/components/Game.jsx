@@ -3,15 +3,33 @@ import Circle from "../UI_components/Circle";
 
 const Game = ({ score, circles, stopHandler }) => {
   return (
-    <div>
-      <p>{score}</p>
-      <div>
-        {circles.map((_, i) => (
-          <Circle key={i} />
-        ))}
+    <>
+      <div className="title-scores-container">
+        <div className="scores">
+          <p className="game-score">
+            Score: <span className="score">{score}</span>
+          </p>
+          <p className="high-score">
+            High Score: <span id="high-score">{"highscore"}</span>
+          </p>
+          <h3 id="alert-message"></h3>
+        </div>
       </div>
-      <button onClick={stopHandler}>Stop Game</button>
-    </div>
+      <div className="circles-buttons-container">
+        <div className="circle-container">
+          {circles.map((_, i) => (
+            <Circle key={i} />
+          ))}
+        </div>
+
+        <div className="button-container">
+          <button onClick={stopHandler}>Stop Game</button>
+        </div>
+        <button id="js-info-button" className="info-button">
+          Info
+        </button>
+      </div>
+    </>
   );
 };
 export default Game;
