@@ -26,6 +26,7 @@ function App() {
       difficulty,
       name,
     });
+
     setGameLaunch(!gameLaunch);
     setGameOn(!gameOn);
   };
@@ -35,15 +36,29 @@ function App() {
     setGameOver(!gameOver);
   };
 
+  const handleClose = () => {
+    setGameOver(!gameOver);
+    setGameLaunch(!gameLaunch);
+  };
+
+  const handleCircle = (id) => {
+    console.log(`circle ${id} clicked`);
+  };
+
   return (
     <>
       <main className="app">
-        <h1>Pick the Mushroom</h1>
+        {!gameOver && <h1>Pick the Mushroom</h1>}
         {gameLaunch && <NewGame onclick={gameSetHandler} />}
         {gameOn && (
-          <Game score={score} circles={circles} stopHandler={stopHandler} />
+          <Game
+            score={score}
+            circles={circles}
+            stopHandler={stopHandler}
+            handleCircle={handleCircle}
+          />
         )}
-        {gameOver && <GameOver />}
+        {gameOver && <GameOver player={player} handleClose={handleClose} />}
       </main>
       <Footer />
     </>
