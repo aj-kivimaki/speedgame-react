@@ -1,6 +1,6 @@
 // modal with player name, final score, conditional message, close modal button
 
-const GameOver = ({ player, handleClose }) => {
+const GameOver = ({ player, handleClose, score }) => {
   return (
     <div className="game-results-screen">
       <button onClick={handleClose} id="close-button">
@@ -8,7 +8,7 @@ const GameOver = ({ player, handleClose }) => {
       </button>
       <h2>GAME OVER</h2>
       <p id="high-score-message"></p>
-      <p className="points">100</p>
+      <p className="points">{score}</p>
       <div className="player-container">
         <h3 className="player">{player.name}</h3>
         <h3 className="difficulty">{player.difficulty}</h3>

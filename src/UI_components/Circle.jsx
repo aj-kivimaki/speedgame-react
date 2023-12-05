@@ -1,6 +1,9 @@
-const Circle = ({ handleCircle, id }) => {
+const Circle = ({ handleCircle, id, currentNumber }) => {
   return (
-    <div className="circle" onClick={() => handleCircle(id)}>
+    <div
+      className={`circle ${currentNumber ? "circle" : ""}`}
+      onClick={() => handleCircle(id)}
+    >
       {id}
     </div>
   );

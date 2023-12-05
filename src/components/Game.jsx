@@ -1,7 +1,7 @@
 // current code, listing the circles, end game button
 import Circle from "../UI_components/Circle";
 
-const Game = ({ score, circles, stopHandler, handleCircle }) => {
+const Game = ({ score, circles, stopHandler, handleCircle, currentNumber }) => {
   return (
     <>
       <div className="title-scores-container">
@@ -18,7 +18,12 @@ const Game = ({ score, circles, stopHandler, handleCircle }) => {
       <div className="circles-buttons-container">
         <div className="circle-container">
           {circles.map((_, i) => (
-            <Circle key={i} id={i} handleCircle={handleCircle} />
+            <Circle
+              key={i}
+              id={i}
+              handleCircle={handleCircle}
+              currentNumber={currentNumber === i}
+            />
           ))}
         </div>
 

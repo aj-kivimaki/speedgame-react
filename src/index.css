@@ -131,9 +131,9 @@ img {
   border-radius: 50%;
   display: flex;
   justify-content: center;
-  /* pointer-events: none; */
   align-items: center;
   box-shadow: 2px 2px 3px #333;
+  /* pointer-events: none; */
 }
 
 .circle:hover {
