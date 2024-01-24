@@ -29,9 +29,6 @@ const Game = ({ score, circles, stopHandler, handleCircle, currentNumber }) => {
         <div className="button-container">
           <button onClick={stopHandler}>Stop Game</button>
         </div>
-        <button id="js-info-button" className="info-button">
-          Info
-        </button>
       </div>
     </>
   );

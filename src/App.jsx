@@ -3,6 +3,7 @@ import Footer from "./UI_components/Footer";
 import NewGame from "./components/NewGame";
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
+import Info from "./components/Info";
 import { levels } from "./levels";
 
 // generates a random number
@@ -17,6 +18,7 @@ function App() {
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
 
   const timeoutIdRef = useRef(null);
   const roundsRef = useRef(0);
@@ -89,11 +91,18 @@ function App() {
     roundsRef.current--;
   };
 
+  const clickHandler = () => {
+    setOpenInfo(!openInfo);
+  };
+
   return (
     <>
       <main className="app">
         {!gameOver && <h1>Pick the Mushroom</h1>}
-        {gameLaunch && <NewGame onclick={gameSetHandler} />}
+        {gameLaunch && (
+          <NewGame onclick={gameSetHandler} clickHandler={clickHandler} />
+        )}
+        {openInfo && <Info clickHandler={clickHandler} set />}
         {gameOn && (
           <Game
             score={score}

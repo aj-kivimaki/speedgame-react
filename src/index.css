@@ -42,7 +42,7 @@ img {
   justify-content: space-between;
   position: relative;
   background-color: rgba(187, 137, 114, 0.85);
-  cursor: url("./pics/knife.png"), auto;
+  cursor: url("./assets/knife.png"), auto;
   border-radius: 20px;
   margin: 15px;
 }
@@ -189,8 +189,8 @@ button:active {
 
 .info-button {
   position: absolute;
-  right: 40px;
-  bottom: 30px;
+  right: 20px;
+  top: 170px;
   z-index: 1;
 }
 
@@ -209,6 +209,7 @@ small {
   left: 0;
   right: 0;
   z-index: 2;
+  font-size: 16px;
 }
 
 /* - - - GameOver - - - */
@@ -250,8 +251,8 @@ small {
   offset: 0;
   display: flex;
   flex-direction: column;
-  padding: 120px;
-  font-size: 36px;
+  font-size: 24px;
+  padding: 20px;
   color: white;
   line-height: 1.7;
   gap: 60px;
