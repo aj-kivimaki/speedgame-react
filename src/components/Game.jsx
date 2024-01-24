@@ -1,4 +1,3 @@
-// current code, listing the circles, end game button
 import Circle from "../UI_components/Circle";
 
 const Game = ({ score, circles, stopHandler, handleCircle, currentNumber }) => {

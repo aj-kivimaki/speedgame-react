@@ -151,6 +151,11 @@ img {
   transform: scale(1.3);
 }
 
+.active {
+  background-image: url("./assets/mushroom-0.png");
+  background-size: cover;
+}
+
 /* - - - buttons - - - */
 
 .button-container {

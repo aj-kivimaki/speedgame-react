@@ -1,5 +1,3 @@
-// gameSetHandler, clickHandler, nextCircle, startHandler, stopHandler, closeHandler
-
 import { useState, useRef } from "react";
 import Footer from "./UI_components/Footer";
 import NewGame from "./components/NewGame";
@@ -7,20 +5,25 @@ import Game from "./components/Game";
 import GameOver from "./components/GameOver";
 import { levels } from "./levels";
 
+// generates a random number
+const getRandomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min)) + min;
+
 function App() {
   const [player, setPlayer] = useState({});
   const [circles, setCircles] = useState([]);
   const [score, setScore] = useState(0);
+  const [currentNumber, setCurrentNumber] = useState(0);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [currentNumber, setCurrentNumber] = useState(0);
 
   const timeoutIdRef = useRef(null);
+  const roundsRef = useRef(0);
+  const currentInst = useRef(0);
 
   let pace = 1000;
   let levelsAmount = 0;
-  let mushroomId = 0;
 
   const gameSetHandler = (difficulty, name) => {
     // find the element
@@ -28,7 +31,7 @@ function App() {
     levelsAmount = amount;
 
     // create array of numbers, starting from 0
-    const circlesArray = Array.from({ length: amount }, (_, i) => i);
+    const circlesArray = Array.from({ length: levelsAmount }, (_, i) => i);
     setCircles(circlesArray);
 
     setPlayer({
@@ -38,22 +41,22 @@ function App() {
     });
 
     setGameLaunch((prevLaunch) => !prevLaunch);
+    gameStart();
+  };
+
+  const gameStart = () => {
     setGameOn((prevOn) => !prevOn);
-    const newNumber = getNewNumber(currentNumber);
-
-    // mushroomId = displayRandomMushroom(newNumber, currentNumber);
-
-    // in case of poisonous mushroom
-    // balances the unclicked poisonous mushroom
-    // if (mushroomId === levelsAmount) rounds--;
+    getNewNumber(currentNumber);
   };
 
   const stopHandler = () => {
-    setGameOn((prevOn) => !prevOn);
-    setGameOver((prevOver) => !prevOver);
     // clearTimeout(timer); /* USE useRef instead */
     clearTimeout(timeoutIdRef.current);
     timeoutIdRef.current = null;
+    setGameOn((prevOn) => !prevOn);
+    setGameOver((prevOver) => !prevOver);
+    roundsRef.current = null;
+    pace = 1000;
   };
 
   const handleClose = () => {
@@ -62,35 +65,28 @@ function App() {
     setScore(0);
   };
 
-  // generates a random number
-  const getRandomNumber = (min, max) =>
-    Math.floor(Math.random() * (max - min)) + min;
-
   // generates new random number, which is different from the one before
-  const getNewNumber = (currentNumber) => {
-    let newNumber = getRandomNumber(0, levelsAmount); // circles.length DOES NOT work, use global variable
-    newNumber === currentNumber ? getNewNumber(currentNumber) : newNumber;
-    console.log(`random number: ${newNumber}`);
+  const getNewNumber = () => {
+    // ends the game after three missed clicks
+    if (roundsRef.current >= 3) return stopHandler();
+
+    let newNumber;
+
+    do {
+      newNumber = getRandomNumber(0, levelsAmount);
+    } while (newNumber === currentInst.current);
 
     setCurrentNumber(newNumber);
-    timeoutIdRef.current = setTimeout(getNewNumber, pace);
+    currentInst.current = newNumber;
+    roundsRef.current++;
     pace -= 8;
+    timeoutIdRef.current = setTimeout(getNewNumber, pace);
   };
 
   const handleCircle = (id) => {
     id !== currentNumber && stopHandler();
     setScore((prevScore) => prevScore + 2);
-    /*
-    if (mushroomId === 3) {
-      score -= 5;
-      displayScore();
-      badFx.play();
-      displayAlertMessage();
-      setTimeout(removeAlertMessage, 1500);
-      return;
-    } */
-    // getRandomSound();
-    // rounds--;
+    roundsRef.current--;
   };
 
   return (
