@@ -15,6 +15,7 @@
   -moz-user-select: none;
   -webkit-text-select: none;
   -webkit-user-select: none;
+  cursor: url("./assets/images/knife.png"), auto;
 }
 
 body {
@@ -26,7 +27,7 @@ body {
   font-family: "Indie Flower";
   background-color: #333;
   height: 100vh;
-  background-image: url("./assets/mushroom-big-bg.jpg");
+  background-image: url("./assets/images/mushroom-big-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -42,7 +43,6 @@ img {
   justify-content: space-between;
   position: relative;
   background-color: rgba(187, 137, 114, 0.85);
-  cursor: url("./assets/knife.png"), auto;
   border-radius: 20px;
   margin: 15px;
 }
@@ -152,8 +152,9 @@ img {
 }
 
 .active {
-  background-image: url("./assets/mushroom-0.png");
+  background-image: url("./assets/images/mushroom.png");
   background-size: cover;
+  box-shadow: 0 0 10px white;
 }
 
 /* - - - buttons - - - */
@@ -172,7 +173,6 @@ button {
   color: white;
   padding: 10px 20px;
   border-radius: 3px;
-  cursor: pointer;
   transition: color 0.15s, background-color 0.15s;
   box-shadow: 2px 2px 3px #333;
 }
@@ -246,7 +246,7 @@ small {
 }
 
 .info {
-  background-color: rgba(105, 105, 105, 0.9);
+  background-color: rgba(105, 105, 105, 0.95);
   position: absolute;
   offset: 0;
   display: flex;
@@ -262,22 +262,21 @@ small {
 
 #close-button {
   position: absolute;
-  top: 0;
-  right: 10px;
-  font-size: 50px;
+  top: -10px;
+  right: -5px;
+  font-size: 40px;
 }
 
 .game-results-screen button {
   background-color: transparent;
   box-shadow: none;
-  cursor: pointer;
 }
 
 #close-overlay2 {
   position: absolute;
   top: 10px;
   right: 30px;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 #high-score-message {

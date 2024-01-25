@@ -1,6 +1,13 @@
 import Circle from "../UI_components/Circle";
 
-const Game = ({ score, circles, stopHandler, handleCircle, currentNumber }) => {
+const Game = ({
+  score,
+  circles,
+  stopHandler,
+  handleCircle,
+  currentNumber,
+  highScore,
+}) => {
   return (
     <>
       <div className="title-scores-container">
@@ -9,7 +16,7 @@ const Game = ({ score, circles, stopHandler, handleCircle, currentNumber }) => {
             Score: <span className="score">{score}</span>
           </p>
           <p className="high-score">
-            High Score: <span id="high-score">22</span>
+            High Score: <span id="high-score">{highScore}</span>
           </p>
           <h3 id="alert-message"></h3>
         </div>

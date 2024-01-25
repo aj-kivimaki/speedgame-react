@@ -5,6 +5,12 @@ import Game from "./components/Game";
 import GameOver from "./components/GameOver";
 import Info from "./components/Info";
 import { levels } from "./levels";
+import victorySfx from "./assets/sound-effects/victory.wav";
+import goodFx1 from "./assets/sound-effects/pick1.wav";
+import goodFx2 from "./assets/sound-effects/pick2.wav";
+import goodFx3 from "./assets/sound-effects/pick3.wav";
+
+const goodFxArr = [goodFx1, goodFx2, goodFx3];
 
 // generates a random number
 const getRandomNumber = (min, max) =>
@@ -14,6 +20,10 @@ function App() {
   const [player, setPlayer] = useState({});
   const [circles, setCircles] = useState([]);
   const [score, setScore] = useState(0);
+  // gets the high score value from the local storage and displays it
+  const [highScore, setHighScore] = useState(
+    parseInt(localStorage.getItem("highScore")) || 0
+  );
   const [currentNumber, setCurrentNumber] = useState(0);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
@@ -51,6 +61,16 @@ function App() {
     getNewNumber(currentNumber);
   };
 
+  function victory() {
+    new Audio(victorySfx).play();
+  }
+
+  // generate random sound between 3 sounds
+  const getRandomSound = () => {
+    const arrIndex = getRandomNumber(0, 3);
+    new Audio(goodFxArr[arrIndex]).play();
+  };
+
   const stopHandler = () => {
     // clearTimeout(timer); /* USE useRef instead */
     clearTimeout(timeoutIdRef.current);
@@ -59,6 +79,7 @@ function App() {
     setGameOver((prevOver) => !prevOver);
     roundsRef.current = null;
     pace = 1000;
+    putHighScore(score);
   };
 
   const handleClose = () => {
@@ -67,11 +88,11 @@ function App() {
     setScore(0);
   };
 
-  // generates new random number, which is different from the one before
   const getNewNumber = () => {
     // ends the game after three missed clicks
     if (roundsRef.current >= 3) return stopHandler();
 
+    // generates new random number, which is different from the one before
     let newNumber;
 
     do {
@@ -89,10 +110,21 @@ function App() {
     id !== currentNumber && stopHandler();
     setScore((prevScore) => prevScore + 2);
     roundsRef.current--;
+    getRandomSound();
   };
 
   const clickHandler = () => {
     setOpenInfo(!openInfo);
+  };
+
+  // saves in case of high score
+  const putHighScore = (score) => {
+    if (score > highScore) {
+      localStorage.setItem("highScore", score);
+      setHighScore(score);
+      victory();
+      // displayHighScoreMessage();
+    }
   };
 
   return (
@@ -110,6 +142,7 @@ function App() {
             stopHandler={stopHandler}
             handleCircle={handleCircle}
             currentNumber={currentNumber}
+            highScore={highScore}
           />
         )}
         {gameOver && (

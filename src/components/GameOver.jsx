@@ -1,14 +1,19 @@
 // modal with player name, final score, conditional message, close modal button
+import looseSfx from "../assets/sound-effects/loose.wav";
 
 const GameOver = ({ player, handleClose, score }) => {
+  function loose() {
+    new Audio(looseSfx).play();
+  }
+
   // generates the result text depending on the score
   const getResultText = (score) => {
     if (score < 0) {
-      // loose.play();
+      loose();
       return `Wow! Minus points! ${score}p`;
     }
     if (score === 0) {
-      // loose.play();
+      loose();
       return "What's wrong with you? Have you even seen a mushroom before?!";
     }
     if (score < 20) return `You are so slow! You got only ${score} points.`;

@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const NewGame = ({ onclick, clickHandler }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("Player");
 
   const inputHandler = (e) => setName(e.target.value);
 
